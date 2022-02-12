@@ -21,7 +21,7 @@ urlpatterns = [
     path('api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('rest-auth/', include('rest_auth.urls')),
     path('rest-auth/registration/', include('rest_auth.registration.urls')),
-    path('quizzer/', include ('app.api.urls')),
-   # path('quiz/', include('quizzer.urls', namespace="Quiz")),
+    # path tp access quiz view 
+    path('quizzer/', include('app.urls', namespace = 'quizzer')),
 
 ]
