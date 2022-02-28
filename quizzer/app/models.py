@@ -1,109 +1,58 @@
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.contrib.auth.models import User
+
+from django.db.models.signals import post_save
+
+from PIL import Image
+from django.conf import settings
+import os
+
+def user_directory_path_profile(instance, filename):
+	profile_pic_name = 'user_{0}/profile.jpg'.format(instance.user.id)
+	full_path = os.path.join(settings.MEDIA_ROOT, profile_pic_name)
+	if os.path.exists(full_path):
+		os.remove(full_path)
+	
+	return profile_pic_name
+
+def user_directory_path_banner(instance, filename):
+	banner_pic_name = 'user_{0}/banner.jpg'.format(instance.user.id)
+	full_path = os.path.join(settings.MEDIA_ROOT, banner_pic_name)
+	if os.path.exists(full_path):
+		os.remove(full_path)
+	
+	return banner_pic_name
 
 
-class StudentInfo(models.Model):
-    class Meta:
-        verbose_name = _("Student Info")
-        verbose_name_plural = _("Student Information")
+# Create your models here.
+class Profile(models.Model):
+	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
+	location = models.CharField(max_length=50, null=True, blank=True)
+	url = models.CharField(max_length=80, null=True, blank=True)
+	profile_info = models.TextField(max_length=150, null=True, blank=True)
+	created = models.DateField(auto_now_add=True)
+	picture = models.ImageField(upload_to=user_directory_path_profile, blank=True, null=True, verbose_name='Picture')
+	banner = models.ImageField(upload_to=user_directory_path_banner, blank=True, null=True, verbose_name='Banner')
 
-    student_id = models.CharField(max_length=50)
-    student_name = models.CharField(max_length=50)
-    student_dob = models.CharField(max_length=50)
-    student_year = models.CharField(max_length=50)
-   # student_course = models.CharField(max_length=50)
-    student_school = models.CharField(max_length=50)
-    
-    def __str__(self):
-        return self.student_id
+	def save(self, *args, **kwargs):
+		super().save(*args, **kwargs)
+		SIZE = 250, 250
+	
+		if self.picture:
+			pic = Image.open(self.picture.path)
+			pic.thumbnail(SIZE, Image.LANCZOS)
+			pic.save(self.picture.path)
 
-class TeacherInfo(models.Model):
-    teacher_id = models.CharField(max_length=50)
-    teacher_name = models.CharField(max_length=50)
-    teacher_dob = models.CharField(max_length=50)
-    teacher_dept = models.CharField(max_length=50)
-    teacher_school = models.CharField(max_length=50)
+	def __str__(self):
+		return self.user.username
+		
 
-    def __str__(self):
-        return self.teacher_id
+def create_user_profile(sender, instance, created, **kwargs):
+	if created:
+		Profile.objects.create(user=instance)
 
-class Category(models.Model):
-    name = models.CharField(max_length=255, default="String")
+def save_user_profile(sender, instance, **kwargs):
+	instance.profile.save()
 
-    def __str__(self):
-        return self.name
-
-
-class Quizzes(models.Model):
-
-    class Meta:
-        verbose_name = _("Quiz")
-        verbose_name_plural = _("Quizzes")
-        ordering = ['id']
-
-    title = models.CharField(max_length=255, default=_(
-        "New Quiz"), verbose_name=_("Quiz Title"))
-    category = models.ForeignKey(
-        Category, default=1, on_delete=models.DO_NOTHING)
-    date_created = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.title
-
-
-class Updated(models.Model):
-
-    date_updated = models.DateTimeField(
-        verbose_name=_("Last Updated"), auto_now=True)
-
-    class Meta:
-        abstract = True
-
-
-class Question(Updated):
-
-    class Meta:
-        verbose_name = _("Question")
-        verbose_name_plural = _("Questions")
-        ordering = ['id']
-
-    SCALE = (
-        (1, _('Beginner')),
-        (2, _('Expert'))
-    )
-
-    TYPE = (
-        (0, _('Multiple Choice')),
-    )
-
-    quiz = models.ForeignKey(
-        Quizzes, related_name='question', on_delete=models.DO_NOTHING)
-    technique = models.IntegerField(
-        choices=TYPE, default=0, verbose_name=_("Type of Question"))
-    title = models.CharField(max_length=255, verbose_name=_("Title"))
-    difficulty = models.IntegerField(
-        choices=SCALE, default=0, verbose_name=_("Difficulty"))
-    date_created = models.DateTimeField(
-        auto_now_add=True, verbose_name=_("Date Created"))
-    is_active = models.BooleanField(
-        default=False, verbose_name=_("Active Status"))
-
-    def __str__(self):
-        return self.title
-
-
-class Answer(Updated):
-
-    class Meta:
-        verbose_name = _("Answer")
-        verbose_name_plural = _("Answers")
-        ordering = ['id']
-
-    question = models.ForeignKey(
-        Question, related_name='answer', on_delete=models.DO_NOTHING)
-    answer_text = models.CharField(
-        max_length=255, verbose_name=_("Answer Text"), default="String")
-    is_right = models.BooleanField(default=False)
-
-    def __str__(self):
-        return self.answer_text
+post_save.connect(create_user_profile, sender=User)
+post_save.connect(save_user_profile, sender=User)
