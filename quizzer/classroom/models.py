@@ -4,10 +4,13 @@ from django.urls import reverse
 from django.contrib.auth.models import User
 import uuid
 
+from module.models import Module
 # Create your models here.
-
+from module.models import models
 #ck-editor 3rd app field
 from ckeditor.fields import RichTextField
+
+from module.models import Module
 
 def user_directory_path(instance, filename):
     #uploaded to media root /the user(id)/the file
@@ -33,6 +36,7 @@ class Course(models.Model):
     modules = RichTextField()
     user = models.ForeignKey(User, on_delete=models.CASCADE, related_name="course_owner")
     enrolled = models.ManyToManyField(User)
+    modules = models.ManyToManyField(Module)
 
     def __str__(self):
         return self.title
