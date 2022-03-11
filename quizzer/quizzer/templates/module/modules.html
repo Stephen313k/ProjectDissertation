@@ -27,33 +27,36 @@
  
   <div class="section">
     <h4>Modules</h4>
-    <div class="divider"></div> 
-<div>
-    <ul class="collapsible">
-      {% for module in course.modules.all %}
-        <li>
-          <div class="collapsible-header"><i class="material-icons">expand_more</i><b>{{ module.title }}</b></div>
-          <div class="collapsible-body"> 
-          {% if teacher_mode == True %}
-            <a href="" class="btn-small"><i class="material-icons">add</i>Add new page</a>
-            <a href="" class="btn-small"><i class="material-icons">add</i>Add new quiz</a>
-            <a href="" class="btn-small"><i class="material-icons">add</i>Add new assignment</a>
-            <br>
-          {% endif %}
-          <div class="collection">
-            <br>
-            <a href="#!" class="collection-item">Alvin</a>
-            <a href="#!" class="collection-item active">Alvin</a>
-            <a href="#!" class="collection-item">Alvin</a>
-            <a href="#!" class="collection-item">Alvin</a>
+    <div class="divider">
+  </div> 
+  <div>
+      <ul class="collapsible">
+        {% for module in course.modules.all %}
+          <li>
+            <div class="collapsible-header"><i class="material-icons">expand_more</i><b>{{ module.title }}</b></div>
+            <div class="collapsible-body"> 
+            {% if teacher_mode == True %}
+              <a href="{% url 'new-page' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Add new page</a>
+              <a href="" class="btn-small"><i class="material-icons">add</i>Add new quiz</a>
+              <a href="" class="btn-small"><i class="material-icons">add</i>Add new assignment</a>
+              <br>
+            {% endif %}
+            <div class="collection">
+              <br>
+              {% for page in module.pages.all %}
+                <a href="{% url 'page-detail' course.id module.id page.id %}" class="collection-item"><i class="material-icons"> segment</i>{{ page.title }}
+                <div class="secondary-content">
+                  Completed:
+                  <i class="material-icons secondary-content">panorama_fish_eye</i>
+                </div>
+              </a>
+              {% endfor %}
+            </div>
           </div>
-        </div>
-      </li>
-      {% endfor %}
+        </li>
+        {% endfor %}
       </ul>
-</div>
-
-</div>
-</div>
-</div>
-{% endblock %}
+  </div>
+  </div>
+  </div>
+  {% endblock %}

@@ -10,7 +10,7 @@
 
     <form method="post" enctype="multipart/form-data" action="" role="form">
       {% csrf_token %}
-    <h3 class="title is-3">Let's create a new module!</h3>
+    <h3 class="title is-3">Let's create a new page</h3>
 
 
           <div class="input-field col s12">
@@ -19,8 +19,17 @@
           </div>
 
           <div class="input-field col s12">
-            {{ form.hours }}
-            <label for="description">Hours</label>
+            {{ form.content }}
+          </div>
+
+          <div class="file-field input-field col s12">
+            <div class="btn">
+              <span>Files</span>
+              {{ form.files }}
+            </div>
+            <div class="file-path-wrapper">
+              <input class="file-path validate" type="text" placeholder="Upload one or more files">
+            </div>
           </div>
 
 
@@ -34,7 +43,7 @@
       <div class="field">
       <p class="control">
         <button type="submit" value="login" class="btn waves-effect waves-light">
-          Create new module
+          Create new page
         </button>
       </p>
     </div>

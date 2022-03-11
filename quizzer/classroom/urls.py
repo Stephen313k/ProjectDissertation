@@ -20,7 +20,7 @@ urlpatterns = [
 	path('<course_id>/modules', CourseModules, name='modules'),
 	path('<course_id>/modules/newmodule', NewModule, name='new-module'),
 	#pages
-	path('<course_id>/modules/<module_id>/newpage', NewPageModule, name='new-page'),
-	path('<course_id>/modules/<module_id>/<page_id>', PageDetail, name='page-detail'),
+	path('<course_id>/modules/<module_id>/pages/newpage', NewPageModule, name='new-page'),
+	path('<course_id>/modules/<module_id>/pages/<page_id>', PageDetail, name='page-detail'),
 
 ]

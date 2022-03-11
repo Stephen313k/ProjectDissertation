@@ -39,6 +39,7 @@ def CourseModules(request, course_id):
 	teacher_mode = False
 	if user == course.user:
 		teacher_mode = True
+		
 	context = {
 		'teacher_mode': teacher_mode,
 		'course': course, 
