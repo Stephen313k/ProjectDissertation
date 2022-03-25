@@ -1,6 +1,6 @@
+//materializecss.com
 (function($){
   $(function(){
-
     $('.sidenav').sidenav();
     $('.tabs').tabs();
     $('.materialboxed').materialbox();
@@ -9,6 +9,7 @@
     $('.tooltipped').tooltip();
     $('.modal').modal();
     $('.collapsible').collapsible();
+    $('.datepicker').datepicker({format:'yyyy-mm-dd'});
     
   }); // end of document ready
 })(jQuery); // end of jQuery name space

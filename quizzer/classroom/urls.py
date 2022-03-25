@@ -3,7 +3,7 @@ from classroom.views import Categories, CategoryCourses, NewCourse, Enroll, Edit
 from classroom.views import DeleteCourse
 from classroom.views import CourseDetail
 from module.views import NewModule, CourseModules
-
+from quiz.views import NewQuiz, NewQuestion, QuizDetail, TakeQuiz, SubmitAttempt, AttemptDetail
 from page.views import NewPageModule, PageDetail
 
 urlpatterns = [
@@ -22,5 +22,12 @@ urlpatterns = [
 	#pages
 	path('<course_id>/modules/<module_id>/pages/newpage', NewPageModule, name='new-page'),
 	path('<course_id>/modules/<module_id>/pages/<page_id>', PageDetail, name='page-detail'),
+	#quizzes
+	path('<course_id>/modules/<module_id>/quiz/newquiz', NewQuiz, name='new-quiz'),
+	path('<course_id>/modules/<module_id>/quiz/<quiz_id>/newquestion', NewQuestion, name='new-question'),
+	path('<course_id>/modules/<module_id>/quiz/<quiz_id>/', QuizDetail, name='quiz-detail'),
+	path('<course_id>/modules/<module_id>/quiz/<quiz_id>/take', TakeQuiz, name='take-quiz'),
+	path('<course_id>/modules/<module_id>/quiz/<quiz_id>/take/submit', SubmitAttempt, name='submit-quiz'),
+	path('<course_id>/modules/<module_id>/quiz/<quiz_id>/<attempt_id>/results', AttemptDetail, name='attempt-detail'),
 
 ]

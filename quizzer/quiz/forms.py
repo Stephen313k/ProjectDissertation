@@ -21,4 +21,3 @@ class NewQuestionForm(forms.ModelForm):
 	class Meta:
 		model = Question
 		fields = ('question_text', 'points')
-

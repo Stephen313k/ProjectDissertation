@@ -8,9 +8,7 @@ from ckeditor.fields import RichTextField
 
 class Answer(models.Model):
 	answer_text = models.CharField(max_length=900)
-	#boolean for correct or not
 	is_correct = models.BooleanField(default=False)
-	#users linked with foreign key
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 
 	def __str__(self):
@@ -18,7 +16,6 @@ class Answer(models.Model):
 
 class Question(models.Model):
 	question_text = models.CharField(max_length=900)
-	#Many answers
 	answers = models.ManyToManyField(Answer)
 	points = models.PositiveIntegerField()
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -29,13 +26,11 @@ class Question(models.Model):
 class Quizzes(models.Model):
 	user = models.ForeignKey(User, on_delete=models.CASCADE)
 	title = models.CharField(max_length=200)
-	#ckeditor
 	description = RichTextField()
 	date = models.DateTimeField(auto_now_add=True)
 	due = models.DateField()
 	allowed_attempts = models.PositiveIntegerField()
 	time_limit_mins = models.PositiveIntegerField()
-	#multiple questions in quiz
 	questions = models.ManyToManyField(Question)
 
 	def __str__(self):

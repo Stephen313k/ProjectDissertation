@@ -37,7 +37,7 @@
             <div class="collapsible-body"> 
             {% if teacher_mode == True %}
               <a href="{% url 'new-page' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Add new page</a>
-              <a href="" class="btn-small"><i class="material-icons">add</i>Add new quiz</a>
+              <a href="{% url 'new-quiz' course.id module.id %}" class="btn-small"><i class="material-icons">add</i>Add new quiz</a>
               <a href="" class="btn-small"><i class="material-icons">add</i>Add new assignment</a>
               <br>
             {% endif %}
@@ -51,6 +51,14 @@
                 </div>
               </a>
               {% endfor %}
+              {% for quiz in module.quizzes.all %}
+              <a href="{% url 'quiz-detail' course.id module.id quiz.id %}" class="collection-item"><i class="material-icons"> fact_check</i>{{ quiz.title }}
+              <div class="secondary-content">
+                Completed:
+                <i class="material-icons secondary-content">panorama_fish_eye</i>
+              </div>
+            </a>
+            {% endfor %}
             </div>
           </div>
         </li>

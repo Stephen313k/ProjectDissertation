@@ -9,78 +9,114 @@ from module.models import Module
 # Create your views here.
 
 #pass in module id to add to module
-def NewQuiz(request, module_id):
-    user = request.user
-    module = get_object_or_404(Module, id=module_id)
-    if request.method == 'POST':
-        form = NewQuestionForm(request.POST)
-        if form.is_valid():
-            #from forms
-            title = form.cleaned_data.get('title')
-            description = form.cleaned_data.get('description')
-            due = form.cleaned_data.get('due')
-            allowed_attempts = form.cleaned_data.get('allowed_attempts')
-            time_limit_mins = form.cleaned_data.get('time_limit_mins')
-            #create quiz with data above
-            quiz = Quizzes.objects.create(title=title, description=description, due=due, allowed_attempts=allowed_attempts, time_limit_mins=time_limit_mins)
-            module.quizzes.add(quiz)
-            module.save()
-            return redirect('new-question', quiz_id=quiz.id)
-    else:
-        form = NewQuizForm()
-    context = {
-        'form': form,
-    }
-    
-    return render(request, 'quiz/newquiz.html', context)
 
-def NewQuestion(request, quiz_id):
-    user = request.user
-    quiz = get_object_or_404(Quizzes, id=quiz_id)
-    if request.method == 'POST':
-        form = NewQuestionForm(request.POST)
-        if form.is_valid():
-            question_text = form.cleaned_data.get('question_text')
-            points = form.cleaned_data.get('points')
-            #getting list of answers
-            answer_text = request.POST.getlist('answer_text')
-            is_correct = request.POST.getlist('answer_text')
+def NewQuiz(request, course_id, module_id):
+	user = request.user
+	module = get_object_or_404(Module, id=module_id)
+	if request.method == 'POST':
+		form = NewQuizForm(request.POST)
+		if form.is_valid():
+			title = form.cleaned_data.get('title')
+			description = form.cleaned_data.get('description')
+			due = form.cleaned_data.get('due')
+			allowed_attempts = form.cleaned_data.get('allowed_attempts')
+			time_limit_mins = form.cleaned_data.get('time_limit_mins')
+			quiz = Quizzes.objects.create(user=user, title=title, description=description, due=due, allowed_attempts=allowed_attempts, time_limit_mins=time_limit_mins)
+			module.quizzes.add(quiz)
+			module.save()
+			return redirect('new-question', course_id=course_id, module_id=module_id, quiz_id=quiz.id)
+	else:
+		form = NewQuizForm()
 
-            question = Question.objects.create(question_text=question_text, user=user, points=points)
+	context = {
+		'form': form,
+	}
+	return render(request, 'quiz/newquiz.html', context)
 
-            #takes two lists, returns tuple and compares 
-            # iterate through answers, and correct
-            for a, c in zip(answer_text, is_correct):
-                answer = Answer.object.create(answer_text=a, is_correct=c, user=user)
-                #assign new answer to question
-                question.answers.add(answer)
-                question.save()
-                quiz.questions.add(question)
-                quiz.save()
-            return redirect('new-question', quiz_id=quiz.id)
-    else:
-        form = NewQuestionForm()
-    
-    context = {
-        'form': form,
-    }
-    return render(request, 'quiz/newquestion.html', context)
+def NewQuestion(request, course_id, module_id, quiz_id):
+	user = request.user
+	quiz = get_object_or_404(Quizzes, id=quiz_id)
+	if request.method == 'POST':
+		form = NewQuestionForm(request.POST)
+		if form.is_valid():
+			question_text = form.cleaned_data.get('question_text')
+			points = form.cleaned_data.get('points')
+			answer_text = request.POST.getlist('answer_text')
+			is_correct = request.POST.getlist('is_correct')
 
-def QuizDetail(request, quiz_id):
-    user = request.user
-    quiz = get_object_or_404(Quizzes, id=quiz_id)
-    my_attempts = Attempter.objects.filter(quiz=quiz, user=user)
+			question = Question.objects.create(question_text=question_text, user=user, points=points)
 
-    context = {
-        'quiz': quiz,
-        'my_attempts': my_attempts,
-    }
-    return render(request, 'quiz/quizdetail.html', context)
+			for a, c in zip(answer_text, is_correct):
+				answer = Answer.objects.create(answer_text=a, is_correct=c, user=user)
+				question.answers.add(answer)
+				question.save()
+				quiz.questions.add(question)
+				quiz.save()
+			return redirect('new-question', course_id=course_id, module_id=module_id, quiz_id=quiz.id)
+	else:
+		form = NewQuestionForm()
+
+	context = {
+		'form': form,
+	}
+	return render(request, 'quiz/newquestion.html', context)
+
+def QuizDetail(request, course_id, module_id, quiz_id):
+	user = request.user
+	quiz = get_object_or_404(Quizzes, id=quiz_id)
+	my_attempts = Attempter.objects.filter(quiz=quiz, user=user)
+
+	context = {
+		'quiz': quiz,
+		'my_attempts': my_attempts,
+		'course_id': course_id,
+		'module_id': module_id,
+	}
+	return render(request, 'quiz/quizdetail.html', context)
 
 #in the quiz page, take quiz
-def TakeQuiz(request, quiz_id):
+def TakeQuiz(request, course_id, module_id, quiz_id):
     quiz = get_object_or_404(Quizzes, id=quiz_id)
     context = {
         'quiz': quiz,
+        'course_id': course_id,
+        'module_id': module_id,
     }
     return render(request, 'quiz/takequiz.html', context)
+
+def SubmitAttempt (request, course_id, module_id, quiz_id):
+    user = request.user
+    earned_points = 0
+    quiz = get_object_or_404(Quizzes, id=quiz_id)
+    #getting list of questions and answers
+    if request.method == 'POST':
+        questions = request.POST.getlist('question')
+        answers = request.POST.getlist('answer')
+        attempter = Attempter.objects.create(user=user, quiz=quiz, score=0)
+
+        #go through questions, and answers
+        for q, a in zip(questions,answers):
+            #pass in id
+            question = Question.objects.get(id=q)
+            answer = Answer.objects.get(id=a)
+            Attempter.objects.create(user=user, attempter=attempter, question=question, answer=answer)
+            #if answer is correct update points
+            if answer.is_correct == True:
+                earned_points += question.points
+                attempter.score = earned_points
+                attempter.save()
+        return redirect( 'index' )
+
+def AttemptDetail(request, course_id, module_id, quiz_id, attempt_id):
+    user = request.user
+    quiz = get_object_or_404(Quizzes, id=quiz_id)
+    #underscore user, a lookup Query
+    attempts = Attempt.objects.filter(quiz=quiz, attempter__user=user)
+
+    context={
+        'quiz': quiz,
+        'attempts': attempts,
+        'course_id': course_id,
+        'module_id': module_id,
+    }
+    return render(request, 'quiz/attemptdetail.html', context)
