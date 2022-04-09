@@ -1,6 +1,7 @@
 
 import React, {useState, useEffect} from 'react'
 import { getChatData, sendMessage, getMoreChatData, DeleteMessage } from '../services/chat';
+import QuizCategories from './QuizCategories.jsx';
 
 function MainChat(props) {
     //creating states for form/message
@@ -84,6 +85,7 @@ if (dataLoaded === true) {
 
 return (
     <div>
+    <div><QuizCategories/></div>
 
         <section className="hero is-link">
             <div className="hero-body">
@@ -180,6 +182,7 @@ return (
 
 } else {
   return (
+      
        <div className="container is-max-desktop content is-large has-text-centered">
            <div className="notification is-primary">
                <i className="material-icons">refresh</i>

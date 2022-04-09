@@ -16,7 +16,6 @@ import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
@@ -26,9 +25,14 @@ SECRET_KEY = 'django-insecure-5l8dx2i+@2wjb7&x%@-e-6j@&+mh=qrlakvwv%*5n3=l=2hxy=
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+CORS_ORIGIN_ALLOW_ALL = True
+
+CORS_ALLOW_HEADERS = ('content-disposition', 'accept-encoding',
+                      'content-type', 'accept', 'origin', 'authorization')
 
 
+
+CSRF_TRUSTED_ORIGINS = ['*']
 # Application definition
 
 INSTALLED_APPS = [
@@ -38,7 +42,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'rest_framework',
+    'rest_framework',    
+    'corsheaders',
     'rest_framework.authtoken',
     'frontend',
     'server',
@@ -49,14 +54,16 @@ INSTALLED_APPS = [
     
 ]
 
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
+MIDDLEWARE = [    
+    "corsheaders.middleware.CorsMiddleware",
+    "django.middleware.security.SecurityMiddleware",
+    "django.contrib.sessions.middleware.SessionMiddleware",
+    "django.middleware.common.CommonMiddleware",
+    "django.middleware.csrf.CsrfViewMiddleware",
+    "django.contrib.auth.middleware.AuthenticationMiddleware",
+    "django.contrib.messages.middleware.MessageMiddleware",
+    "django.middleware.clickjacking.XFrameOptionsMiddleware",
+
 ]
 
 ROOT_URLCONF = 'quizzer.urls'
@@ -80,7 +87,7 @@ TEMPLATES = [
 
 REST_FRAMEWORK = {
 'DEFAULT_AUTHENTICATION_CLASSES': [
-#'rest_framework.authentication.SessionAuthentication',         
+#'rest_framework.authentication.SessionAuthentication',    
     'knox.auth.TokenAuthentication',
     ],
 'DEFAULT_PERMISSION_CLASSES': [
@@ -96,10 +103,19 @@ WSGI_APPLICATION = 'quizzer.wsgi.application'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    #'default': {
+     #   'ENGINE': 'django.db.backends.sqlite3',
+      #  'NAME': BASE_DIR / 'db.sqlite3',
+  #  }
+  'default':{
+      'ENGINE':'django.db.backends.postgresql_psycopg2',
+      'NAME':'quizzerdb',
+      'USER': 'postgres',
+      'PASSWORD': 'admin',
+      'HOST': 'localhost',
+      'PORT': '',
+
+  }
 }
 
 

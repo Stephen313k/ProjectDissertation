@@ -1,11 +1,14 @@
 import React, { useContext, useState, useEffect} from 'react'
-
+import { Link } from 'react-router';
+import { useHistory } from 'react-router-dom';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
 import ServersNav from './layout/ServersNav';
 import Server from './layout/Server';
 
 import { getSideNavServers } from './services/Servers';
+import { Button } from '@material-ui/core';
+import QuizCategories from './layout/QuizCategories.jsx';
 
 function Home() {
 
@@ -13,7 +16,7 @@ function Home() {
     const [ActiveServer, setActiveServer] = useState();
     const [TextChannel, setTextChannel] = useState();
     const [chatData, setchatData] = useState();
-
+    const history = useHistory();
     useEffect(()=> {
         //check for the local token
         const token = localStorage.getItem("token");
@@ -26,6 +29,7 @@ function Home() {
     return (
         <div>
             <Header />
+
             <div className="columns">
                 <div className="column is-1">
                     <ServersNav servers={sidenavServers} setActiveServer={setActiveServer} setTextChannel={setTextChannel} setchatData={setchatData}/>
@@ -33,7 +37,7 @@ function Home() {
                 <div className="column is-11">
                     <Server servers={sidenavServers} ActiveServer={ActiveServer} TextChannel={TextChannel} setTextChannel={setTextChannel} chatData={chatData} setchatData={setchatData} />
                 </div>
-            </div>
+            </div>          
             <Footer />
         </div>
     )

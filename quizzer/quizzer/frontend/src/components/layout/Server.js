@@ -1,9 +1,9 @@
 import React, {useState, useEffect } from 'react'
 import MainChat from './MainChat';
 import Members from './Members';
-
 import { getServerData, CreateNewCategory, CreateNewChannel, LeaveServer } from '../services/Servers';
 import { SendNewInvitation } from '../services/notifications';
+import QuizCategories from './QuizCategories.jsx';
 
 function Server(props) {
 
@@ -107,8 +107,8 @@ function Server(props) {
 
     if (dataLoaded === true){
     return(
+        
         <main>
-
         {/* Modal for Group/Categories Channel Creation*/}  
             <div className="modal" id="add-category-modal">
             <div className="modal-background"></div>
@@ -274,12 +274,8 @@ function Server(props) {
     )
     } else {
     return (
-        <div className="container is-max-desktop content is-large has-text-centered">
-            <div className="notification is-primary">
-                <i className="material-icons">refresh</i>
-                <h5 className="title is-5">Nothing to show, click on one of the servers.</h5>
-            </div>
-        </div>
+        
+       <div><QuizCategories/></div>
     )
     }
 }

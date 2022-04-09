@@ -22,15 +22,13 @@ from django.urls import resolve
 def SideNavInfo(request):
 	user = request.user
 	nav_profile = None
-	fans = None
-	follows = None
+
 
 	if user.is_authenticated:
 		nav_profile = Profile.objects.get(user=user)
-		fans = Subscription.objects.filter(subscribed=user).count()
-		follows = Subscription.objects.filter(subscriber=user).count()
+
 	
-	return {'nav_profile': nav_profile, 'fans': fans, 'follows': follows}
+	return {'nav_profile': nav_profile}
 
 
 def UserProfile(request, username):
