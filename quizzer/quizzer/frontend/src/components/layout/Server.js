@@ -3,7 +3,7 @@ import MainChat from './MainChat';
 import Members from './Members';
 import { getServerData, CreateNewCategory, CreateNewChannel, LeaveServer } from '../services/Servers';
 import { SendNewInvitation } from '../services/notifications';
-import QuizCategories from './QuizCategories.jsx';
+import QuizCategories from '../quiz/QuizCategories.jsx';
 
 function Server(props) {
 
@@ -127,10 +127,10 @@ function Server(props) {
                     </div>
                 </section>
                 <footer className="modal-card-foot">
-                <button type="submit" className="button is-success">Save changes</button>                
+                <button type="submit" className="button is-dark">Save changes</button>                
                 {/* binding the modal when clicks for save categorys */}
 
-                <a onClick={ModalClose.bind(this, "add-category-modal")} className="button">Cancel</a>
+                <a onClick={ModalClose.bind(this, "add-category-modal")} className="button is-light">Cancel</a>
                 </footer>
                 </form>
             </div>
@@ -156,9 +156,9 @@ function Server(props) {
                     </div>
                 </section>
                 <footer className="modal-card-foot">
-                <button type="submit" className="button is-success">Save changes</button>
+                <button type="submit" className="button is-dark">Save changes</button>
                   {/* binding the modal when clicks for save changes*/}
-                <a onClick={ModalClose.bind(this, "invite-user-modal")} className="button">Cancel</a>
+                <a onClick={ModalClose.bind(this, "invite-user-modal")} className="button is-light">Cancel</a>
                 </footer>
                 </form>
             </div>
@@ -194,9 +194,9 @@ function Server(props) {
 
                 </section>
                 <footer className="modal-card-foot">
-                <button type="submit" className="button is-success">Save changes</button>
+                <button type="submit" className="button is-darlk">Save changes</button>
                 {/* binding the modal when clicks*/}
-                <a onClick={ModalClose.bind(this, "add-channel-modal")} className="button">Cancel</a>
+                <a onClick={ModalClose.bind(this, "add-channel-modal")} className="button is-light">Cancel</a>
                 </footer>
                 </form>
             </div>
@@ -228,7 +228,7 @@ function Server(props) {
                     <div className="card">
                         <div className="card-content">
                             <div className="content">
-                                <button onClick={ModalTrigger.bind(this, "add-category-modal")} className="button is-small is-primary is-rounded">
+                                <button onClick={ModalTrigger.bind(this, "add-category-modal")} className="button is-small is-dark is-rounded">
                                     <span className="icon is-small">
                                         <i className="material-icons">add</i>
                                     </span>
@@ -239,7 +239,7 @@ function Server(props) {
                                 <aside className="menu">
                                     <p key={category.id} className="menu-label">{category.title}</p>
 
-                                    <button onClick={ModalTrigger.bind(this, "add-channel-modal", category.id)} className="button is-small is-primary is-rounded">
+                                    <button onClick={ModalTrigger.bind(this, "add-channel-modal", category.id)} className="button is-small is-dark is-rounded">
                                         <span className="icon is-small">
                                             <i className="material-icons">add</i>
                                         </span>

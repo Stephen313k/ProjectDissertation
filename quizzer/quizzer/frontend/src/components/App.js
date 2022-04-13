@@ -11,7 +11,7 @@ import PrivateRoute from './utils/PrivateRoute';
 import { UserContext } from './utils/UserContext';
 import Notifications from './layout/Notifications'
 import { getCurrentUser } from './services/auth';
-import QuizCategories from './layout/QuizCategories.jsx';
+import QuizCategories from './quiz/QuizCategories.jsx';
 /*
 const App = () => {
   return (

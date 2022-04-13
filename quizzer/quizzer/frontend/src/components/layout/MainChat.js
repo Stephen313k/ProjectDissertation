@@ -1,7 +1,7 @@
 
 import React, {useState, useEffect} from 'react'
 import { getChatData, sendMessage, getMoreChatData, DeleteMessage } from '../services/chat';
-import QuizCategories from './QuizCategories.jsx';
+
 
 function MainChat(props) {
     //creating states for form/message
@@ -85,9 +85,7 @@ if (dataLoaded === true) {
 
 return (
     <div>
-    <div><QuizCategories/></div>
-
-        <section className="hero is-link">
+        <section className="hero is-dark">
             <div className="hero-body">
                 {/* display relevant text channel and topic. Condition if its not null then render */}
                 <p className="title">{props.TextChannel !== null ? props.TextChannel.title : ''}</p>
@@ -97,7 +95,7 @@ return (
 
         <div className="level-item">
             {/* button to load more content */}
-            <button id="loadmorebtn" onClick={handleLoadMore} style={{display: hasNext ? "flex" : "none"}} className="button is-success">Load more</button>
+            <button id="loadmorebtn" onClick={handleLoadMore} style={{display: hasNext ? "flex" : "none"}} className="button is-dark">Load more</button>
         </div>
          {/* Bulma list style | mapping out chat.id, chatbody, profile image and button for admins to delete messages*/}
         <ol style={{listStyle: "none", display:"flex", flexDirection:"column-reverse"}} className="collection">
@@ -144,12 +142,12 @@ return (
             <nav className="level">
             <div className="level-left">
                 <div className="level-item">
-                    <button type="submit" className="button is-info">Submit</button>
+                    <button type="submit" className="button is-light">Submit</button>
                 </div>
             </div>
             <div className="level-right">
                 <div className="level-item">
-                    <div id="chat-file" className="file is-right is-info">
+                    <div id="chat-file" className="file is-right is-dark">
                     <label className="file-label">
                         <input id="chatf" className="file-input" type="file" name="chatf" onChange={e => {
                             setChatFile(e.target.files[0])
@@ -184,7 +182,7 @@ return (
   return (
       
        <div className="container is-max-desktop content is-large has-text-centered">
-           <div className="notification is-primary">
+           <div className="notification is-light">
                <i className="material-icons">refresh</i>
                <h5 className="title is-5">Nothing to show, click on one of the channels.</h5>
           </div>

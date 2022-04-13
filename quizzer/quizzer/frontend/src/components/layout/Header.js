@@ -11,10 +11,11 @@ function Header() {
 
     return (
     <header>
-        <nav className="navbar is-info" role="navigation" aria-label="main navigation">
+
+        <nav className="navbar is-light" role="navigation" aria-label="main navigation">
         <div className="navbar-brand">
-            <a className="navbar-item" href="https://bulma.io">
-            <img src="/static/img/quizzer.png" width="112" height="28"></img>
+            <a className="navbar-item" href="http://127.0.0.1:8000">
+            <img src="/static/img/quizzer.png" width="120" height="300"></img>
             </a>
 
             <a role="button" className="navbar-burger" aria-label="menu" aria-expanded="false" data-target="navbarBasicExample">
@@ -25,14 +26,12 @@ function Header() {
         </div>
 
         <div id="navbarBasicExample" className="navbar-menu">
-
             <div className="navbar-end">
-                <a className="navbar-item"><i className="material-icons">home</i>Home</a>
+                <a className="navbar-item" href="http://127.0.0.1:8000"><i className="material-icons">home</i>Home</a>
                 <a className="navbar-item" onClick={()=>{
                     {/*directs user to notifications*/}
                     history.push("/notifications");
                 }}><i className="material-icons">notifications</i>Notifications</a>
-                <a className="navbar-item"><i className="material-icons">person</i>Me</a>
                 <div className="navbar-item">
                     <div className="buttons">
                         <button className="button is-light" onClick={()=>{

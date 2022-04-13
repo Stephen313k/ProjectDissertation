@@ -34,7 +34,7 @@ function Register() {
         <div className="container pt-5">
         <div className="card">
         <div className="card-content">
-            <h3 className="title is-3">Register to Discord Clone</h3>
+            <h3 className="title is-3">Register for Quizzer</h3>
             <form onSubmit={handleSubmit}>
             <div className="field">
             <p className="control has-icons-left">

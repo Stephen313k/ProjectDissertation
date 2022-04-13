@@ -25,10 +25,10 @@ function ServersNav(props) {
         <div className="box">
             <ul>
                 <li style={{ paddingTop: "15px", paddingLeft: "5px"}}>
-                    <Link to="/createserver" className="button is-link is-small is-rounded">Create</Link>
+                    <Link to="/createserver" className="button is-dark is-small is-rounded ">Create</Link>
                 </li>
                 <li style={{ paddingTop: "15px", paddingLeft: "5px"}}>
-                    <Link to="/explore" className="button is-link is-small is-rounded">Explore</Link>
+                    <Link to="/explore" className="button is-dark is-small is-rounded">Explore</Link>
                 </li>
                 {props.servers.map(server =>(
                     <li key={server.id} style={{ paddingTop: "15px", paddingLeft: "5px"}}>

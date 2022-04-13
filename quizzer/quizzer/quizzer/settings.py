@@ -27,6 +27,19 @@ DEBUG = True
 
 CORS_ORIGIN_ALLOW_ALL = True
 
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000",
+    "http://127.0.0.1:8000",
+]
 
 
 
@@ -85,13 +98,14 @@ TEMPLATES = [
 
 REST_FRAMEWORK = {
 'DEFAULT_AUTHENTICATION_CLASSES': [
-#'rest_framework.authentication.SessionAuthentication',    
-    'knox.auth.TokenAuthentication',
+    'knox.auth.TokenAuthentication','rest_framework.authentication.SessionAuthentication',    
+
     ],
 'DEFAULT_PERMISSION_CLASSES': [
     'rest_framework.permissions.IsAuthenticated',
     ],
 }
+
 
 
 WSGI_APPLICATION = 'quizzer.wsgi.application'
@@ -163,3 +177,4 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 #MEDIA
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+ 

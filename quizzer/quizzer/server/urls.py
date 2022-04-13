@@ -2,7 +2,7 @@ from django.urls import path
 from server import api
 
 urlpatterns = [
-                                #CREATE API 
+    #CREATE API 
     path('server/getservers/', api.ServerAPI.as_view(), name='api-get-servers'),
     path('server/createserver/', api.ServerAPI.as_view(), name='api-create-server'),
     path('server/getserverdetail/<uuid:pk>', api.ServerDetailAPI, name='api-get-server-detail'),

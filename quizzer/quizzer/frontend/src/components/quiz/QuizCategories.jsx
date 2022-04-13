@@ -1,15 +1,4 @@
-import {
-  Grid,
-  Paper,
-  Select,
-  Button,
-  MenuItem,
-  TextField,
-  Container,
-  Typography,
-  InputLabel,
-  FormControl,
-} from "@material-ui/core";
+import { Grid, Paper, Select, Button, MenuItem, TextField, Container, Typography, InputLabel, FormControl,} from "@material-ui/core";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { makeStyles } from "@material-ui/core/styles";
@@ -124,7 +113,7 @@ const QuizCategories = () => {
         {currentQuizStep === "start" ? (
           <>
             <Typography variant="h1" className={classes.mainTitle}>
-              Get Questions:
+              Take a quiz:
             </Typography>
             <form onSubmit={handleSubmit}>
               <Grid container spacing={4}>
