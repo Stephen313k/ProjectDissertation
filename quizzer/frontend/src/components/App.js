@@ -10,15 +10,7 @@ import ExploreServers from './server/ExploreServers';
 import PrivateRoute from './utils/PrivateRoute';
 import { UserContext } from './utils/UserContext';
 import Notifications from './layout/Notifications'
-import { getCurrentUser } from './services/auth';
 import QuizCategories from './quiz/QuizCategories.jsx';
-/*
-const App = () => {
-  return (
-      <QuizCategories/>
-  )
-};
-*/
 
 function App() {
 
@@ -37,6 +29,7 @@ function App() {
         <Router>
             <Switch>
                 <UserContext.Provider value={{ isAuth, setisAuth}}>    
+                    {/*private route acts as a doorman if the user is logged in */}
                     <PrivateRoute exact path="/" authed={isAuth} component={Home} />
                     <Route path="/login" component={Login} />
                     <Route path="/register" component={Register} />

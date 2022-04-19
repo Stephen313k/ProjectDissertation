@@ -11,7 +11,6 @@ export const SendNewInvitation = (to_user, to_server, token) => {
             'Content-Type' : 'application/json',
         }
     };
-
     //Request body
     let notification_type = 1;
     const post_body = JSON.stringify({to_user, to_server, notification_type})
@@ -21,7 +20,6 @@ export const SendNewInvitation = (to_user, to_server, token) => {
     const dataPromise = promise.then((response)=> response.data);
     return dataPromise;
 };
-
 
 export const ReqToJoinServer = (to_server, token) => {
     axios.defaults.headers.common["Authorization"] = "Token " + token;

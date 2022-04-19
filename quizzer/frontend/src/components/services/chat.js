@@ -1,5 +1,6 @@
 import axios from 'axios';
 
+//chat data in main chat
 export const getChatData = (id, token) => {
     //get token for channel id
     axios.defaults.headers.common["Authorization"] = "Token " + token;
@@ -10,6 +11,7 @@ export const getChatData = (id, token) => {
     return dataPromise;
 };
 
+//button to load older messages
 export const getMoreChatData = (link, token) => {
     axios.defaults.headers.common["Authorization"] = "Token " + token;
     const promise = axios.get(link);

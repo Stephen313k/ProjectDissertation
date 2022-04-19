@@ -30,6 +30,7 @@ export const getServersInSearch = (title) => {
     return dataPromise;
 }; 
 
+
 export const CreateNewServer = (picture, banner, title, description, category) => {
     //Headers
     const config = {
@@ -93,7 +94,6 @@ export const CreateNewCategory = (server_id, title) => {
             'Content-Type' : 'application/json',
         }
     };
-
     //Request body
     //using json for the data
     const post_body = JSON.stringify({server_id, title})

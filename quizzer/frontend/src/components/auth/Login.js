@@ -12,18 +12,23 @@ function Login() {
     
     let history = useHistory();
 
+    //handling login
     const handleSubmit = (e)=> {
         e.preventDefault();
+        //username and password are valid
         loginUser(username, password)
         .then(response =>{
             const auth_token = response;
+            //set the new auth token
             setAxiosAuthToken(auth_token);
             setToken(auth_token);
             getCurrentUser();
             setisAuth(true);
+            //redirect to home page
             history.push("/");
 
         })
+        //if login fails return error
         .catch(error => {
             unsetCurrentUser();
             window.alert("Login Error " + error);

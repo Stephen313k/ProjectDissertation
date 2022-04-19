@@ -15,7 +15,7 @@ from rest_framework.decorators import api_view, permission_classes
 #Django 
 from django.http.response import Http404
 
-#Response Pagination UTIL:
+#Response Pagination UTIL: display 5 results
 class ResponsePagination(PageNumberPagination):
     page_query_param = 'p'
     page_size = 5

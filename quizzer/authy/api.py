@@ -23,7 +23,7 @@ def SignupAPI(request):
         serializer = SignupSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            created, token = AuthToken.objects.create(user)
+            token = AuthToken.objects.create(user)
             return Response({
                 'user': serializer.data,
                 'status': status.HTTP_201_CREATED,

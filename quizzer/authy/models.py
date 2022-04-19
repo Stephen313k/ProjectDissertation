@@ -28,8 +28,9 @@ def user_directory_path_banner(instance, filename):
 	return banner_pic_name
 
 
-# Create your models here.
+# Model for user profile
 class Profile(models.Model):
+	#fields
 	user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
 	location = models.CharField(max_length=50, null=True, blank=True)
 	url = models.CharField(max_length=80, null=True, blank=True)
@@ -41,7 +42,7 @@ class Profile(models.Model):
 	def save(self, *args, **kwargs):
 		super().save(*args, **kwargs)
 		SIZE = 250, 250
-
+		#for image upload
 		if self.picture:
 			pic = Image.open(self.picture.path)
 			pic.thumbnail(SIZE, Image.LANCZOS)

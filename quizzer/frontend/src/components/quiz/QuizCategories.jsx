@@ -12,10 +12,10 @@ const useStyles = makeStyles((theme) => {
 
 const QuizCategories = () => {
 
-
+  //use states
   const [categories, setCategories] = useState([]);
   const [category, setCategory] = useState({ id: "", name: "" });
-
+  //for selecting quiz question amount and difficulty
   const [quizNumber, setQuizNumber] = useState(null);
   const [difficulty, setDifficulty] = useState({ id: "", name: "" });
 
@@ -25,25 +25,29 @@ const QuizCategories = () => {
   const [currentQuizStep, setCurrentQuizStep] = useState("start");
 
   const fetchQuizData = async () => {
-
-
     try {
+      //fetch the api, being dynamic with {quizNumber}, and {category.id}
       const url = `https://opentdb.com/api.php?amount=${quizNumber}&category=${
         category.id
       }&difficulty=${difficulty.name.toLowerCase()}`;
+      //asynchronous 
       const { data } = await axios.get(url);
 
+      //map over each category. callback function
       const formattedCategory = data.results.map((cat) => {
-
+          
+        //randomize where the correct answer is on the quiz
         const incorrectAnswersIndexes = cat.incorrect_answers.length;
         const randomIndex = Math.round(
           Math.random() * (incorrectAnswersIndexes - 0) + 0
         );
-
+        //apply the random index
         cat.incorrect_answers.splice(randomIndex, 0, cat.correct_answer);
         
         return {
+          //return all categories
           ...cat,
+          //create new key answers
           answers: cat.incorrect_answers,
         };
       });
@@ -56,11 +60,15 @@ const QuizCategories = () => {
   };
 
   const fetchCategories = async () => {
+    //fetch the api this url is the category list only
     const { data } = await axios.get(`https://opentdb.com/api_category.php`);
+    //console log to find the key for trivia_categories
     setCategories(data.trivia_categories);
   };
-
+  
+  //callback function when component is rendered
   useEffect(() => {
+    //call this function
     fetchCategories();
     window.scrollTo(0, "20px");
   }, []);
@@ -72,15 +80,19 @@ const QuizCategories = () => {
     }
   };
 
+  //changing the quiz category
   const handleSelectChange = (e) => {
     e.preventDefault();
     const selectedCategory = categories.find(
+      //category id is equal to the selected value
       (cat) => cat.id === e.target.value
     );
+    //setting the state to the method
     setCategory(selectedCategory);
   };
 
   const handleDifficultyChange = (e) => {
+    //prevent default browser behaviour
     e.preventDefault();
     const selectedDifficulty = difficulties.find(
       (diff) => diff.id === e.target.value
@@ -93,6 +105,7 @@ const QuizCategories = () => {
     setQuizNumber(e.target.value);
   };
 
+  //button for restting quiz
   const resetQuiz = (e) => {
     e.preventDefault();
     setQuizData([]);
@@ -110,6 +123,7 @@ const QuizCategories = () => {
   return (
     <Container>
       <Paper className={classes.paper}>
+        {/*if the user is at the start then render this*/}
         {currentQuizStep === "start" ? (
           <>
             <Typography variant="h1" className={classes.mainTitle}>
@@ -131,6 +145,7 @@ const QuizCategories = () => {
                       labelId="category-select-label"
                       onChange={handleSelectChange}
                     >
+                      {/* list all elements as html (dangerouslySetInnerHTML)*/}
                       {categories.map((category) => (
                         <MenuItem key={category.id} value={category.id}>
                           <span

@@ -56,6 +56,7 @@ function Server(props) {
         setctgForNewChannel('');
         modal.style.display = 'none';
     }
+    //adding group/category for server
     const handleSubmitCategory = (e) => {
         e.preventDefault();
         //pass in new server detail/id and new title category
@@ -67,6 +68,7 @@ function Server(props) {
         })
     };
     
+    //to send an invitation
     const handleSubmitInvitation = (e) => {
         e.preventDefault();
         //Check for token
@@ -79,6 +81,7 @@ function Server(props) {
         })
     };    
     
+
     const handleSubmitChannel = (e) => {
         e.preventDefault();
           //pass in new server detail/id, category, title and topic
@@ -89,6 +92,7 @@ function Server(props) {
             ModalClose("add-channel-modal");
         })
     };
+
     function handleClick(parameter, event){
       //to activate when click on text channel
         props.setTextChannel(parameter);

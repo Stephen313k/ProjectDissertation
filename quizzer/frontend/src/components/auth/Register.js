@@ -17,6 +17,7 @@ function Register() {
 
     const handleSubmit = (e)=> {
         e.preventDefault();
+        //if the passwords dont match
         if (password !== password_two){
             window.alert("Error passwords do not match");
         } else {

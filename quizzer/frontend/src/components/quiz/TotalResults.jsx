@@ -18,6 +18,7 @@ const TotalResults = ({
       <Typography variant="h1" className={classes.mainTitle}>
         Results
       </Typography>
+      {/* calculating how many answers were correct by iterating through .length */}
       <Typography variant="h4">
         {processedAnswers.filter(({ isCorrect }) => isCorrect).length} out of{" "}
         {processedAnswers.length}

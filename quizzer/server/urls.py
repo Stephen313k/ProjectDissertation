@@ -13,6 +13,4 @@ urlpatterns = [
     path('server/create-text-channel', api.TextChannelsCreate, name = 'api-create-text-channel'),
     path('server/ban/<int:pk>/<uuid:server_id>', api.banAPI, name='api-ban-user'),
     path('server/leaveserver/<uuid:pk>', api.LeaveServerAPI, name='api-leave-server'),
-
-
 ]

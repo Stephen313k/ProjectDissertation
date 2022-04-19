@@ -1,3 +1,4 @@
+//styling for quiz component
 export const styles = {
   paper: {
     padding: "20px",
@@ -46,7 +47,7 @@ export const styles = {
     flexDirection: "column",
   },
 };
-
+//for the quiz difficulty
 export const difficulties = [
   { id: "total_easy_question_count", name: "Easy" },
   { id: "total_medium_question_count", name: "Medium" },

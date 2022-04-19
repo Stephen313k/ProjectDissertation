@@ -10,6 +10,21 @@ export const setAxiosAuthToken = (token) => {
     }
 };
 
+//Service to log the user in
+export const loginUser = (username, password ) => {
+    //Headers
+    const config = {
+        headers : {
+            'Content-Type' : 'application/json',
+        }
+    };
+    //Request body
+    const body = JSON.stringify({ username, password });
+    const promise = axios.post('api/authy/login', body, config);
+    const dataPromise = promise.then((response) => response.data.token);
+    return dataPromise;
+};
+
 export const setToken = (token) => {
     localStorage.setItem("token", token);
 };
@@ -24,6 +39,7 @@ export const unsetCurrentUser = () => {
     localStorage.removeItem("user");
 };
 
+//get the current user for login authentication
 export const getCurrentUser = () => {
     axios
     .get("api/authy/whoami")
@@ -59,20 +75,6 @@ export const logoutall = () => {
     })
 };
 
-//Service to log the user
-export const loginUser = (username, password ) => {
-    //Headers
-    const config = {
-        headers : {
-            'Content-Type' : 'application/json',
-        }
-    };
-    //Request body
-    const body = JSON.stringify({ username, password });
-    const promise = axios.post('api/authy/login', body, config);
-    const dataPromise = promise.then((response) => response.data.token);
-    return dataPromise;
-};
 
 
 //Service to Register USER
