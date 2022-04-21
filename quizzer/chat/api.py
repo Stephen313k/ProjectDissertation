@@ -23,7 +23,7 @@ class ResponsePagination(PageNumberPagination):
     max_page_size = 5
 
 class chatAPIList(APIView):
-    permission_classes = [permissions.IsAuthenticated,]
+    permission_classes = [permissions.AllowAny,]
 
     def get_object(self, pk):
         try:
@@ -53,7 +53,7 @@ class chatAPIList(APIView):
 
 #decorated view for delete message api
 @api_view(['DELETE'])
-@permission_classes([permissions.IsAuthenticated,])
+@permission_classes([permissions.AllowAny,])
 def DeleteMessageAPI(request, pk, server_id):
     if request.method == 'DELETE':
         #if request is to delete get the server id

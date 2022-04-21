@@ -16,7 +16,7 @@ from notification.serializers import NotificationSerializer
 
 
 class NotificationAPI(APIView):
-    permission_classes = [permissions.IsAuthenticated,]
+    permission_classes = [permissions.AllowAny,]
     
     def get_object(self, pk):
         try:
@@ -55,7 +55,7 @@ class NotificationAPI(APIView):
 
 #aaccept an invitation
 @api_view(['POST'])
-@permission_classes([permissions.IsAuthenticated,])
+@permission_classes([permissions.AllowAny,])
 @parser_classes([JSONParser])
 def acceptInvitation(request, pk):
     if request.method == 'POST':
@@ -79,7 +79,7 @@ def acceptInvitation(request, pk):
 
 #request to join a server
 @api_view(['POST'])
-@permission_classes([permissions.IsAuthenticated,])
+@permission_classes([permissions.AllowAny,])
 @parser_classes([JSONParser])
 def ReqToJoinServer(request):
     if request.method == 'POST':

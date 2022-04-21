@@ -76,7 +76,7 @@ def ServerDetailAPI(request, pk):
         })
 
 @api_view(['GET'])
-@permission_classes([permissions.IsAuthenticated,])
+@permission_classes([permissions.AllowAny,])
 def ServerCategoriesAPI(request):
     if request.method == 'GET':
         #pass in categories and serilizers
@@ -86,7 +86,7 @@ def ServerCategoriesAPI(request):
 
 #work with servers
 class ServersInCategoryAPI(APIView):
-    permission_classes = [permissions.IsAuthenticated,]
+    permission_classes = [permissions.AllowAny,]
 
     def get_object(self, pk):
         try:
@@ -116,7 +116,7 @@ class ServerSearch(generics.ListAPIView):
 
 
 @api_view(['POST'])
-@permission_classes([permissions.IsAuthenticated,])
+@permission_classes([permissions.AllowAny,])
 #json parser
 @parser_classes([JSONParser])
 #sending request, post
@@ -137,7 +137,7 @@ def CategoryChannelsCreate(request):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(['POST'])
-@permission_classes([permissions.IsAuthenticated,])
+@permission_classes([permissions.AllowAny,])
 #json parser
 @parser_classes([JSONParser])
 #sending request, post
@@ -160,7 +160,7 @@ def TextChannelsCreate(request):
 
 #for banning 
 @api_view(['DELETE'])
-@permission_classes([permissions.IsAuthenticated,])
+@permission_classes([permissions.AllowAny,])
 def banAPI(request, pk, server_id):
     if request.method == 'DELETE':
         #get the server
@@ -176,7 +176,7 @@ def banAPI(request, pk, server_id):
 
 #api for leaving server
 @api_view(['DELETE'])
-@permission_classes([permissions.IsAuthenticated,])
+@permission_classes([permissions.AllowAny,])
 def LeaveServerAPI(request, pk):
     if request.method == 'DELETE':
         #get the server
