@@ -52,6 +52,7 @@ function MainChat(props) {
         fileNameChatFile.textContent = '';
     };
 
+    //button for loading next five messages
     const handleLoadMore = (e) => {
         e.preventDefault();
         //get relevant the token

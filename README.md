@@ -75,7 +75,7 @@ https://addons.mozilla.org/en-US/firefox/addon/cross-domain-cors/
 
 1. Install extension
 2. Open the extention in the same browser
-3. Ensure the button is enabled
+3. Ensure the button is enabled (toggle it)
 3. In "Apply URL" text field paste in: https://opentdb.com/api.php
 4. Click save
 5. Refresh or go to 127.0.0.1:8000
