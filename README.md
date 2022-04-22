@@ -53,14 +53,14 @@ comment out from line 123 - 131 (disabling postgresql database)
 ___________________________________________________
 
 ## Compiling
-1.Clone project from github
-2.Open "Project Dissertation" in Visual Studio Code.
-3.Open intergrated terminal and enter folder "quizzer" run: (cd quizzer)
-5.Run following command: (path:/projectdissertation/quizzer: "pip install requirements")
-6.Run following command: (path:/projectdissertation/quizzer: "python manage.py runserver")
-7.Forward to "frontend" folder: (cd frontend)
-7.Run following command: (path:/projectdissertation/quizzer/frontend: "npm run dev")
-8.Open browser go to 127.0.0.1:8000
+1.Clone project from github<br />
+2.Open "Project Dissertation" in Visual Studio Code.<br />
+3.Open intergrated terminal and enter folder "quizzer" run: (cd quizzer)<br />
+5.Run following command: (path:/projectdissertation/quizzer: "pip install requirements")<br />
+6.Run following command: (path:/projectdissertation/quizzer: "python manage.py runserver")<br />
+7.Forward to "frontend" folder: (cd frontend)<br />
+7.Run following command: (path:/projectdissertation/quizzer/frontend: "npm run dev")<br />
+8.Open browser go to 127.0.0.1:8000<br />
 _____________________________________________________
 ## Running 
 Depending on the broswer version you are on there could be a cors-header issue with fetching the quiz api (taking a quiz function) from a 3rd party website. This issue can be caused by the quality of the API created as it is a free to use one.
